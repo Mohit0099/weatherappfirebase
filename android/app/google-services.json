@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "859799643200",
+    "project_id": "datasave-7e0ac",
+    "storage_bucket": "datasave-7e0ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859799643200:android:1244fca0dd02778472aba5",
+        "android_client_info": {
+          "package_name": "com.example.bhart_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6sTAqfssVllOiYrrmDN4GC2eqWk1pi_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
