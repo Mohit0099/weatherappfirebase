@@ -1,7 +1,9 @@
 import 'package:bhart_app/bloc/home_data_bloc.dart';
+import 'package:bhart_app/firebase/login_sinup.dart';
 import 'package:bhart_app/model/weather_model.dart';
 import 'package:bhart_app/view/weather/search_weather.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,6 +21,8 @@ class _WeatherPageState extends State<WeatherPage> {
   bool loanding = true;
 
   List<WeatherModel> weather = [];
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   initState() {
@@ -61,14 +65,41 @@ class _WeatherPageState extends State<WeatherPage> {
     });
   }
 
+  Future<void> _signOut(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
+    String userEmail = user?.email ?? 'Unknown';
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xff1B2761),
         actions: [
+          InkWell(
+            onTap: () {
+              _signOut(context);
+            },
+            child: Container(
+              height: 50,
+              padding: const EdgeInsets.all(10),
+              child: const Text(
+                "Logout",
+                style: TextStyle(
+                    color: Colors.white54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+          ),
           InkWell(
             onTap: () {
               Navigator.push(
@@ -86,6 +117,17 @@ class _WeatherPageState extends State<WeatherPage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
+            ),
+          ),
+          Container(
+            height: 50,
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              userEmail.toString(),
+              style: TextStyle(
+                  color: Colors.white54,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
             ),
           ),
         ],
